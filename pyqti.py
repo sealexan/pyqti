@@ -15,9 +15,10 @@ class Qti:
     template_manifest = load_template('imsmanifest')
     template_structure = load_template('test_structure')
 
-    def __init__(self, title, sections):
+    def __init__(self, title, sections, navigation_mode="linear"):
         self.title = title
         self.sections = sections
+        self.navigation_mode = navigation_mode
 
     def save_as(self, zip_path, files_path=None):
         structure, manifest = self._create_structure()
@@ -44,11 +45,13 @@ class Qti:
             for root, dirs, files in os.walk(files_path):
                 for file in files:
                     zipf.write(os.path.join(root, file), file)
+            print(f"Resulting zip file written to {zip_path}")
 
     def _create_structure(self):
         structure = self.template_structure.substitute({
             "sections": "".join([s.serialize_structure() for s in self.sections]),
-            "exam_title": self.title
+            "exam_title": self.title,
+            "navigation_mode": self.navigation_mode
         })
         manifest = self.template_manifest.substitute({
             "resources": "".join([s.serialize_manifest() for s in self.sections])
@@ -71,6 +74,7 @@ class Item:
         self.filename = f"{self.uuid}.xml"
 
     def serialize_structure(self):
+        print(f'Writing {self.title} to {self.identity()["href"]}')
         return self.template_ref.substitute(self.identity())
 
     def identity(self):
@@ -92,10 +96,11 @@ class Item:
 class Section(Item):
     template_structure = load_template('test_structure_section')
 
-    def __init__(self, title, select=1, uuid=None):
+    def __init__(self, title, select=None, uuid=None):
         super().__init__(title, uuid)
         self.children = []
-        self.select = select
+        self.selection = ("" if select is None else
+                          f'<selection select="{select}"/>')
 
     def add(self, child):
         self.children.append(child)
@@ -106,7 +111,7 @@ class Section(Item):
             "section_id": self.uuid,
             "section_title": self.title,
             "refs": "".join(refs),
-            "select_count": self.select
+            "selection": self.selection
         })
 
     def serialize_manifest(self):
@@ -124,7 +129,7 @@ class Essay(Item):
     template_file = load_template('essay')
     template_manifest = load_template('imsmanifest_essay')
 
-    def __init__(self, points, title, html, lines=20, uuid=None):
+    def __init__(self, points, title, html, lines=5, uuid=None):
         super().__init__(title, uuid)
         self.data = {
             "id": self.uuid,

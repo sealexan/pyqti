@@ -1,6 +1,6 @@
     <assessmentSection identifier="${section_id}" fixed="false" title="${section_title}" visible="true" keepTogether="true">
       <itemSessionControl/>
-      <selection select="${select_count}"/>
+      ${selection}
       <ordering shuffle="true"/>
 ${refs}
     </assessmentSection>

@@ -11,7 +11,7 @@
     </defaultValue>
   </outcomeDeclaration>
   <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
-  <testPart identifier="test_part" navigationMode="linear" submissionMode="individual">
+  <testPart identifier="test_part" navigationMode="${navigation_mode}" submissionMode="individual">
     <itemSessionControl maxAttempts="0" showFeedback="false" allowReview="false" showSolution="false" allowComment="false" allowSkipping="false"/>
 ${sections}
   </testPart>

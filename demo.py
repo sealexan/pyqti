@@ -62,7 +62,7 @@ for i in range(50):
     for i in range(4):
         x = random.randrange(10)
         y = random.randrange(10)
-        rest = x + y % 2
+        rest = (x + y) % 2
         target = random.choice([0, 1])
         target_name = "even" if target == 0 else "odd"
         statements.append(f"The sum of {x} and {y} is {target_name}")
@@ -70,7 +70,8 @@ for i in range(50):
     item = Kprim(4, "Math problem", statements, answers)
     maths.add(item)
 
-# Essay questions, select all
+# Essay questions
+# without the select parameter, all items will be included.
 translations = Section("Translation")
 
 item1 = Essay(10, "German",
@@ -90,11 +91,28 @@ item3 = Essay(10, "Russian",
     lines=50)
 translations.add(item3)
 
-# Sequence of sections
-sections = [geography, maths, translations]
+# Sections can be nested
+recipes = Section("Cooking")
+
+pasta = Section("Pasta", select=1)
+for p in ["Spaghetti", "Penne", "Linguine"]:
+    item = Essay(10, p,
+           f"""<p>Share your favourite {p.lower()} recipe</p>""")
+    pasta.add(item)
+recipes.add(pasta)
+
+event = Section("Event", select=1)
+for p in ["Christmas", "Easter"]:
+    item = Essay(10, p,
+           f"""<p>Share your favourite {p} recipe</p>""")
+    event.add(item)
+recipes.add(event)
+
+# Sections in the test
+sections = [geography, maths, translations, recipes]
 
 # Generate output files.
-qti = Qti("Basic knowledge test", sections)
+qti = Qti("Basic knowledge test", sections, navigation_mode="nonlinear")
 zip_path = f"out/qti-exam.zip"
 files_path = f"out/qti-files/"
 # the second parameter is optional. If provided, the qti xml files
