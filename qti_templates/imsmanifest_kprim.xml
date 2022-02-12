@@ -1,0 +1,17 @@
+        <resource identifier="item${id}" type="imsqti_item_xmlv2p1" href="${href}">
+            <metadata>
+                <imsmd:lom>
+                    <imsmd:technical>
+                        <imsmd:format>text/x-imsqti-item-xml</imsmd:format>
+                    </imsmd:technical>
+                    <imsmd:educational/>
+                </imsmd:lom>
+                <imsqti:qtiMetadata>
+                    <imsqti:interactionType>matchInteraction</imsqti:interactionType>
+                </imsqti:qtiMetadata>
+                <ns4:ooMetadata>
+                    <ns4:questionType>kprim</ns4:questionType>
+                </ns4:ooMetadata>
+            </metadata>
+            <file href="${href}"/>
+        </resource>
