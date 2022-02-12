@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import random
-from pyqti import Qti, Section, Essay, Kprim
-
+from pyqti.qti import Qti
+from pyqti.item import Section, Essay, Kprim
 
 # Basic, handcrafted questions one by one, select 2 out of 3
 geography = Section("Geography", select=2)
@@ -112,7 +112,7 @@ recipes.add(event)
 sections = [geography, maths, translations, recipes]
 
 # Generate output files.
-qti = Qti("Basic knowledge test", sections, navigation_mode="nonlinear")
+qti = Qti("Demo test", sections, navigation_mode="nonlinear")
 zip_path = f"out/qti-exam.zip"
 files_path = f"out/qti-files/"
 # the second parameter is optional. If provided, the qti xml files
