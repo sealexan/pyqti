@@ -4,9 +4,10 @@ import random
 from pyqti.qti import Qti
 from pyqti.item import Section, Essay, Kprim
 
-# Basic, handcrafted questions one by one, select 2 out of 3
+# Basic, handcrafted questions one by one, select 2 out of all available
 geography = Section("Geography", select=2)
 
+# 2 points for a Kprim called "Question"
 item1 = Kprim(2, "Question",
     [ "Berlin is the capital of France"
     , "France is a country in Europe"
@@ -30,7 +31,11 @@ item2 = Kprim(2, "Question",
     , False
     , True
     , False
-    ]
+    ],
+    # optional parameter to set the question text.
+    # You can also set Kprim.default_html to change the default.
+    html="""<p>Decide if true or false</p>"""
+
 )
 
 item3 = Kprim(2, "Question",
@@ -43,11 +48,7 @@ item3 = Kprim(2, "Question",
     , False
     , True
     , True
-    ],
-    # optional parameter to set the question text.
-    # You can also set Kprim.default_html to change the default.
-    """<p>Decide if true or false</p>"""
-)
+    ])
 
 geography.add(item1)
 geography.add(item2)
@@ -94,19 +95,21 @@ translations.add(item3)
 # Sections can be nested
 recipes = Section("Cooking")
 
+event = Section("Event", select=1)
+for e in ["Christmas", "Easter"]:
+    item = Essay(10, e,
+           f"""<p>Share your favourite {e} recipe</p>""")
+    event.add(item)
+recipes.add(event)
+
 pasta = Section("Pasta", select=1)
-for p in ["Spaghetti", "Penne", "Linguine"]:
+for i, p in enumerate(["Spaghetti", "Penne", "Linguine"], 1):
     item = Essay(10, p,
-           f"""<p>Share your favourite {p.lower()} recipe</p>""")
+           f"""<p>Share your favourite {p.lower()} recipe</p>""",
+           uuid=f"pasta{i:02d}")
     pasta.add(item)
 recipes.add(pasta)
 
-event = Section("Event", select=1)
-for p in ["Christmas", "Easter"]:
-    item = Essay(10, p,
-           f"""<p>Share your favourite {p} recipe</p>""")
-    event.add(item)
-recipes.add(event)
 
 # Sections in the test
 sections = [geography, maths, translations, recipes]
