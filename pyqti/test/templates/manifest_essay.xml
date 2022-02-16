@@ -1,0 +1,17 @@
+        <resource identifier="itemmy-id" type="imsqti_item_xmlv2p1" href="my-id.xml">
+            <metadata>
+                <imsmd:lom>
+                    <imsmd:technical>
+                    <imsmd:format>text/x-imsqti-item-xml</imsmd:format>
+                    </imsmd:technical>
+                    <imsmd:educational/>
+                </imsmd:lom>
+                <imsqti:qtiMetadata>
+                    <imsqti:interactionType>extendedTextInteraction</imsqti:interactionType>
+                </imsqti:qtiMetadata>
+                <ns4:ooMetadata>
+                    <ns4:questionType>essay</ns4:questionType>
+                </ns4:ooMetadata>
+            </metadata>
+            <file href="my-id.xml"/>
+        </resource>

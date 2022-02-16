@@ -9,8 +9,8 @@ from pyqti.util import load_template
 from pyqti.xmlfile import XMLFile
 
 class Qti:
-    template_manifest = load_template('imsmanifest')
-    template_structure = load_template('test_structure')
+    template_manifest = load_template('manifest')
+    template_structure = load_template('structure')
 
     def __init__(self, title, sections, navigation_mode="linear"):
         self.title = title

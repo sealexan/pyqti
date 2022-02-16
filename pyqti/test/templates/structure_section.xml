@@ -1,0 +1,6 @@
+    <assessmentSection identifier="my-id" fixed="false" title="item_title" visible="true" keepTogether="true">
+      <itemSessionControl/>
+      <selection select="13"/>
+      <ordering shuffle="true"/>
+
+    </assessmentSection>

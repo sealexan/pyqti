@@ -1,8 +1,7 @@
-        <resource identifier="item${id}" type="imsqti_item_xmlv2p1" href="${href}">
+        <resource identifier="itemmy-essay" type="imsqti_item_xmlv2p1" href="my-essay.xml">
             <metadata>
                 <imsmd:lom>
                     <imsmd:technical>
-                         
                     <imsmd:format>text/x-imsqti-item-xml</imsmd:format>
                     </imsmd:technical>
                     <imsmd:educational/>
@@ -14,5 +13,5 @@
                     <ns4:questionType>essay</ns4:questionType>
                 </ns4:ooMetadata>
             </metadata>
-            <file href="${href}"/>
+            <file href="my-essay.xml"/>
         </resource>
