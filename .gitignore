@@ -4,6 +4,7 @@ out
 __pycache__/
 *.py[cod]
 *$py.class
+pyqti.egg-info/
 
 [._]*.s[a-v][a-z]
 [._]*.sw[a-p]
