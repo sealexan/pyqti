@@ -10,7 +10,7 @@ from string import whitespace
 class TestItems(TestCase):
 
     def expected(self, name):
-        return read_resource("pyqti.test.templates", name)
+        return read_resource("tests.templates", name)
 
     def instantiate_item(self, uuid=None):
         return Item("item_title", uuid)
