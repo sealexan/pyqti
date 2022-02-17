@@ -19,8 +19,7 @@ class Item:
         return {"id": self.uuid, "href": self.filename, "title": self.title}
 
     def output_structure(self):
-        # TODO: this doesn't belong here, needs better logging
-        print(f'Writing {self.title} to {self.identity()["href"]}')
+        print(f'Output "{self.title}" to {self.identity()["href"]}')
         return self.template_ref.substitute(self.identity())
 
     def output_manifest(self):
