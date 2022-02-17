@@ -14,6 +14,7 @@ class Item:
             self.uuid = str(uuid4())
         self.filename = f"{self.uuid}.xml"
         self.item_type = type(self).__name__.lower()
+        self.data = {}
 
     def identity(self):
         return {"id": self.uuid, "href": self.filename, "title": self.title}
@@ -33,6 +34,12 @@ class Item:
     def files(self, prefix=""):
         return [XMLFile(self.filename, self.output_file())]
 
+    def __str__(self):
+        return str(self.data)
+
+    def __repr__(self):
+        return repr(self.data)
+
 class Section(Item):
     template_structure = load_template('structure_section')
 
@@ -41,6 +48,11 @@ class Section(Item):
         self.children = []
         self.selection = ("" if select is None else
                           f'<selection select="{select}"/>')
+        self.data = {
+            "id": self.uuid,
+            "title": title,
+            "select": select
+        }
 
     def add(self, *children):
         self.children.extend(children)
