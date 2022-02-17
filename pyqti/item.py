@@ -42,8 +42,8 @@ class Section(Item):
         self.selection = ("" if select is None else
                           f'<selection select="{select}"/>')
 
-    def add(self, child):
-        self.children.append(child)
+    def add(self, *children):
+        self.children.extend(children)
 
     def output_structure(self):
         refs = [c.output_structure() for c in self.children]

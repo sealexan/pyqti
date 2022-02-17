@@ -18,9 +18,8 @@ class Qti:
         self.navigation_mode = navigation_mode
 
     def save_as(self, zip_path, files_path=None):
-        structure, manifest = self._create_structure()
-        manifest = XMLFile("imsmanifest.xml", manifest)
-        structure = XMLFile("structure.xml", structure)
+        manifest = XMLFile("imsmanifest.xml", self.output_manifest)
+        structure = XMLFile("structure.xml", self.output_structure)
         files = []
         for s in self.sections:
             files.extend(s.files())
@@ -44,14 +43,15 @@ class Qti:
                     zipf.write(os.path.join(root, file), file)
             print(f"Resulting zip file written to {zip_path}")
 
-    def _create_structure(self):
-        structure = self.template_structure.substitute({
-            "sections": "".join([s.serialize_structure() for s in self.sections]),
+    def output_structure(self):
+        return self.template_structure.substitute({
+            "sections": "".join([s.output_structure() for s in self.sections]),
             "exam_title": self.title,
             "navigation_mode": self.navigation_mode
         })
-        manifest = self.template_manifest.substitute({
-            "resources": "".join([s.serialize_manifest() for s in self.sections])
+
+    def output_manifest(self):
+        return self.template_manifest.substitute({
+            "resources": "".join([s.output_manifest() for s in self.sections])
         })
-        return structure, manifest
 
