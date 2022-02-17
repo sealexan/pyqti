@@ -32,6 +32,6 @@ for i, p in enumerate(["Spaghetti", "Penne", "Linguine"], 1):
 
 sections = [pasta, maths]
 qti = Qti("Demo exam", sections, navigation_mode="nonlinear")
-zip_path = f"my-exam.zip"
+zip_path = f"out/my-exam.zip"
 qti.save_as(zip_path)
 

@@ -72,7 +72,6 @@ for i in range(100):
     maths.add(item)
 
 # Essay questions
-# without the select parameter, all items will be included.
 translations = Section("Translation")
 
 item1 = Essay(10, "German",
