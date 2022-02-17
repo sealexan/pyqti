@@ -18,8 +18,8 @@ class Qti:
         self.navigation_mode = navigation_mode
 
     def save_as(self, zip_path, files_path=None):
-        manifest = XMLFile("imsmanifest.xml", self.output_manifest)
-        structure = XMLFile("structure.xml", self.output_structure)
+        manifest = XMLFile("imsmanifest.xml", self.output_manifest())
+        structure = XMLFile("structure.xml", self.output_structure())
         files = []
         for s in self.sections:
             files.extend(s.files())

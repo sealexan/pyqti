@@ -13,6 +13,7 @@ class Item:
         if self.uuid is None:
             self.uuid = str(uuid4())
         self.filename = f"{self.uuid}.xml"
+        self.item_type = type(self).__name__.lower()
 
     def identity(self):
         return {"id": self.uuid, "href": self.filename, "title": self.title}
@@ -23,12 +24,12 @@ class Item:
         return self.template_ref.substitute(self.identity())
 
     def output_manifest(self):
-        # self.template_manifest is set in subclasses
-        return self.template_manifest.substitute({**self.data, **self.identity()})
+        template_manifest = load_template(f'manifest_{self.item_type}')
+        return template_manifest.substitute({**self.data, **self.identity()})
 
     def output_file(self):
-        # self.template_file is set in subclasses
-        return self.template_file.substitute({**self.data, **self.identity()})
+        template_file = load_template(self.item_type)
+        return template_file.substitute({**self.data, **self.identity()})
 
     def files(self, prefix=""):
         return [XMLFile(self.filename, self.output_file())]
@@ -65,9 +66,6 @@ class Section(Item):
         return res
 
 class Kprim(Item):
-    template_file = load_template('kprim')
-    template_manifest = load_template('manifest_kprim')
-
     default_html = """<p>Decide for each of the following statements whether it is true or false.</p>"""
 
     def __init__(self, points, title, statements, answers, html=default_html, uuid=None):
@@ -84,9 +82,6 @@ class Kprim(Item):
             self.data[f"statement_{i}_correct"] = "correct" if answer else "wrong"
 
 class Essay(Item):
-    template_file = load_template('essay')
-    template_manifest = load_template('manifest_essay')
-
     def __init__(self, points, title, html, lines=5, uuid=None):
         super().__init__(title, uuid)
         self.data = {
