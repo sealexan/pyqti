@@ -7,6 +7,12 @@ Pyqti is lazy and does not use any XML library. Instead, XML files are created u
 
 Currently, Pyqti has only been tested with [OpenOLAT 14](https://github.com/OpenOLAT/OpenOLAT).
 
+## Installation
+
+```
+pip install .
+```
+
 ## Usage
 
 The following code...
@@ -18,7 +24,16 @@ import random
 from pyqti.qti import Qti
 from pyqti.item import Section, Essay, Kprim
 
-# Section will contain 5 out of all available questions
+# Create a new section
+pasta = Section("Recipes")
+# Generate three essay questions, 10 points each
+for i, p in enumerate(["Spaghetti", "Penne", "Linguine"], 1):
+    item = Essay(10, p,
+           f"""<p>Share your favourite {p.lower()} recipe</p>""",
+           uuid=f"pasta{i:02d}")
+    pasta.add(item)
+
+# This section will contain 5 out of all available questions
 maths = Section("Maths", select=5)
 # Generate 100 Kprim questions
 for i in range(100):
@@ -36,16 +51,8 @@ for i in range(100):
     # Add it to the section
     maths.add(item)
 
-pasta = Section("Recipes")
-# Generate three essay questions, 10 points each
-for i, p in enumerate(["Spaghetti", "Penne", "Linguine"], 1):
-    item = Essay(10, p,
-           f"""<p>Share your favourite {p.lower()} recipe</p>""",
-           uuid=f"pasta{i:02d}")
-    pasta.add(item)
-
 sections = [pasta, maths]
-qti = Qti("Demo test", sections, navigation_mode="nonlinear")
+qti = Qti("Demo exam", sections, navigation_mode="nonlinear")
 zip_path = f"out/my-exam.zip"
 qti.save_as(zip_path)
 ```
