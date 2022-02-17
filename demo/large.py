@@ -4,8 +4,7 @@ import random
 from pyqti.qti import Qti
 from pyqti.item import Section, Essay, Kprim
 
-# Basic, handcrafted questions one by one, select 2 out of all available
-geography = Section("Geography", select=2)
+geography = Section("Geography")
 
 # 2 points for a Kprim called "Question"
 item1 = Kprim(2, "Question",
@@ -54,21 +53,22 @@ geography.add(item1)
 geography.add(item2)
 geography.add(item3)
 
-# Generated questions, select 5 out of 50
+# Section will contain 5 out of all available questions
 maths = Section("Maths", select=5)
 
-for i in range(50):
-    statements = []
-    answers = []
+# Generate 100 Kprim questions
+for i in range(100):
+    statements, answers = [], []
+    # Each question contains 4 math problems
     for i in range(4):
-        x = random.randrange(10)
-        y = random.randrange(10)
+        x, y = random.sample(range(0, 10), 2)
         rest = (x + y) % 2
         target = random.choice([0, 1])
         target_name = "even" if target == 0 else "odd"
         statements.append(f"The sum of {x} and {y} is {target_name}")
         answers.append(True if target == rest else False)
-    item = Kprim(4, "Math problem", statements, answers)
+    item = Kprim(4, "Odd or even", statements, answers)
+    # Add each question to the section
     maths.add(item)
 
 # Essay questions
