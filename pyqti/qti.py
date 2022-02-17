@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-from pathlib import Path
+from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory
 import zipfile
 
@@ -24,6 +24,8 @@ class Qti:
         for s in self.sections:
             files.extend(s.files())
         files.extend([structure, manifest])
+        zip_parent = PurePath(zip_path).parent
+        Path(zip_parent).mkdir(parents=True, exist_ok=True)
         if files_path is not None:
             Path(files_path).mkdir(parents=True, exist_ok=True)
             self._save_as(files, zip_path, files_path)
