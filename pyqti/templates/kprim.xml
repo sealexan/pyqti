@@ -37,7 +37,7 @@
   <itemBody>
     ${task_html}
 
-    <matchInteraction class="match_krpim" responseIdentifier="KPRIM_RESPONSE_1" shuffle="true" maxAssociations="4">
+    <matchInteraction class="match_kprim" responseIdentifier="KPRIM_RESPONSE_1" shuffle="true" maxAssociations="4">
       <simpleMatchSet>
         <simpleAssociableChoice identifier="${id}_1" matchMax="1" matchMin="1">
           ${statement_1}
